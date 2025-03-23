@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAMURAI</title>
+
+    <!-- Google Font: Orbitron -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- jQuery (Gerekliyse) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Inline Stil (Tüm CSS) -->
+    <style>
+      /* GLOBAL AYARLAR */
+      body {
+        font-family: "Orbitron", sans-serif;
+        animation: fadeIn 1.2s ease;
+        padding-top: 80px;
+        background-color: #0d0d0d; /* Karanlık arka plan */
+        color: #f8f8f8;
+        margin: 0; /* Reset default margin */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(1.01);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* NAVBAR */
+      .navbar {
+        margin-bottom: 0;
+        background-color: #0d0d0d;
+        border: none;
+        font-size: 12px;
+        letter-spacing: 3px;
+        box-shadow: 0 0 10px #00ffe5;
+      }
+      .navbar-brand,
+      .navbar-nav .nav-link {
+        color: #00ffe5 !important;
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link.active {
+        color: #ff004f !important;
+        background-color: transparent !important;
+        text-shadow: 0 0 5px #ff004f;
+      }
+      .navbar-brand img {
+        filter: drop-shadow(0 0 10px #ff004f);
+        transition: 0.3s ease;
+      }
+      .navbar-brand img:hover {
+        filter: drop-shadow(0 0 15px #00ffe5);
+      }
+
+      /* GLITCH METİN */
+      .glitch-text {
+        position: relative;
+        color: #ff004f;
+        text-shadow: 1px 0 #00ffe5;
+        animation: glitch 1s infinite;
+      }
+      @keyframes glitch {
+        0% {
+          transform: translate(0);
+        }
+        20% {
+          transform: translate(-1px, 1px);
+        }
+        40% {
+          transform: translate(-1px, -1px);
+        }
+        60% {
+          transform: translate(1px, 1px);
+        }
+        80% {
+          transform: translate(1px, -1px);
+        }
+        100% {
+          transform: translate(0);
+        }
+      }
+
+      /* CAROUSEL */
+      .carousel-inner img {
+        filter: grayscale(0%) brightness(0.8) contrast(1.2);
+        width: 100%;
+        margin: auto;
+        object-fit: cover;
+      }
+      .carousel-caption h3 {
+        color: #00ffe5 !important;
+        text-shadow: 0 0 10px #00ffe5;
+      }
+      @media (max-width: 600px) {
+        .carousel-caption {
+          display: none;
+        }
+      }
+
+      /* CONTAINER GENEL AYARLAR */
+      .container {
+        padding: 80px 120px;
+      }
+
+      /* GRUP BİLGİSİ: KİŞİLER */
+      .rounded-circle {
+        border: 5px solid transparent;
+        margin-bottom: 25px;
+        width: 80%;
+        height: auto;
+        opacity: 0.8;
+        transition: 0.3s ease-in-out;
+        filter: drop-shadow(0 0 10px #ff004f);
+      }
+      .rounded-circle:hover {
+        border-color: #ff004f;
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      .member-pic {
+        display: block;
+        margin: 0 auto 15px;
+        width: 200px; /* Sabit genişlik */
+        height: 300px; /* Sabit yükseklik */
+        object-fit: cover; /* Resmi dikdörtgen içine orantılı kırpar */
+        border-radius: 15px; /* Hafif ovalleşme */
+        filter: drop-shadow(0 0 10px #ff004f);
+        transition: 0.3s ease-in-out;
+      }
+
+      .member-pic:hover {
+        filter: drop-shadow(0 0 15px #00ffe5);
+      }
+      .venue-pic {
+        display: block;
+        margin: 0 auto 15px; /* Ortala + alt boşluk */
+        width: 300px; /* Yatay dikdörtgen genişliği */
+        height: 200px; /* Yatay dikdörtgen yüksekliği */
+        object-fit: cover; /* Kenarları kırparak orantılı doldurur */
+        border-radius: 10px; /* Hafif yuvarlatılmış köşeler */
+        filter: drop-shadow(0 0 10px #ff004f);
+        transition: 0.3s ease-in-out;
+      }
+      .venue-pic:hover {
+        filter: drop-shadow(0 0 15px #00ffe5);
+      }
+
+      /* BUTONLAR */
+      .btn {
+        padding: 10px 20px;
+        background-color: #ff004f;
+        color: #fff;
+        border-radius: 0;
+        border: none;
+        box-shadow: 0 0 10px #ff004f;
+        transition: 0.3s;
+      }
+      .btn:hover,
+      .btn:focus {
+        background-color: #00ffe5;
+        color: #000;
+        box-shadow: 0 0 12px #00ffe5;
+      }
+
+      /* DROPDOWN MENÜ */
+      .dropdown-menu {
+        background-color: #111;
+        border-radius: 0;
+        border: 1px solid #333;
+      }
+      .dropdown-menu li a {
+        color: #f8f8f8 !important;
+        padding: 10px 20px;
+        display: block;
+      }
+      .dropdown-menu li a:hover {
+        background-color: #ff004f !important;
+        color: #fff !important;
+      }
+
+      /* EK KISIM: KONSER MEKANLARI ROW */
+      .venue-list .col-sm-4 {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body id="anasayfa">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2"
+          href="#"
+          id="samuraiLogo"
+        >
+          <img
+            src="images/Samurai_logo.png"
+            alt="Samurai Logo"
+            width="40"
+            height="40"
+          />
+
+          <span class="glitch-text fs-5">SAMURAI</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#myNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#anasayfa">Anasayfa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#group">Samurai</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tur">Bilet Al</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#iletisim">İletişim</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                Daha yakından...
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Johnny</a></li>
+                <li><a class="dropdown-item" href="#">Kerry</a></li>
+                <li><a class="dropdown-item" href="#">Nancy</a></li>
+                <li><a class="dropdown-item" href="#">Denny</a></li>
+                <li><a class="dropdown-item" href="#">Henry</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CAROUSEL -->
+    <div id="galeri" class="carousel slide mt-5" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#galeri"
+          data-bs-slide-to="0"
+          class="active"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#galeri"
+          data-bs-slide-to="1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#galeri"
+          data-bs-slide-to="2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#galeri"
+          data-bs-slide-to="3"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#galeri"
+          data-bs-slide-to="4"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <!-- 1. SLIDE -->
+        <div class="carousel-item active">
+          <img
+            src="images/jhonny_silverhand.jpg"
+            class="d-block w-100"
+            alt="Jhonny and v"
+            style="height: 700px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>“Wake the fuck up, Samurai. We have a city to burn.”</h3>
+            <p>JHONNY SILVERHAND</p>
+          </div>
+        </div>
+        <!-- 2. SLIDE -->
+        <div class="carousel-item">
+          <img
+            src="images/Kerry.webp"
+            class="d-block w-100"
+            alt="Kerry"
+            style="height: 700px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>
+              "Used to be rock was about rebellion. Now it’s just... pop."
+            </h3>
+            <p>KERRY EURODYNE</p>
+          </div>
+        </div>
+        <!-- 3. SLIDE -->
+        <div class="carousel-item">
+          <img
+            src="images/bes_isis.webp"
+            class="d-block w-100"
+            alt="bes isis"
+            style="height: 700px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>“You wanna fight the corps? Words are bullets now.”</h3>
+            <p>BES ISIS/NANCY</p>
+          </div>
+        </div>
+        <!-- 4. SLIDE -->
+        <div class="carousel-item">
+          <img
+            src="images/denney.jpg"
+            class="d-block w-100"
+            alt="denny"
+            style="height: 700px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>“We weren’t a band. We were a ticking time bomb.”</h3>
+            <p>DENNY</p>
+          </div>
+        </div>
+        <!-- 5. SLIDE -->
+        <div class="carousel-item">
+          <img
+            src="images/henry.jpg"
+            class="d-block w-100"
+            alt="henry"
+            style="height: 700px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>"There is no Samurai anymore."</h3>
+            <p>HENRY</p>
+          </div>
+        </div>
+      </div>
+      <!-- Carousel Controls -->
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#galeri"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#galeri"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- GRUP BİLGİSİ -->
+    <div id="group" class="container text-center my-5">
+      <h3 class="glitch-text">SAMURAI</h3>
+
+      <!-- Şarkı Listesi -->
+      <ul>
+        <p>Chippin' In</p>
+        <p>Never Fade Away</p>
+        <p>The Ballad of Buck Ravers</p>
+        <p>A Like Supreme</p>
+        <p>Black Dog</p>
+        <p>4AM</p>
+      </ul>
+
+      <!-- ÜYELERİ 3+2 Şeklinde Düzenledim -->
+      <!-- 1. Satır: 3 Üye (col-sm-4 her biri) -->
+      <div class="row mt-4">
+        <div class="col-sm-4 mb-4">
+          <p><strong>Johnny Silverhand</strong></p>
+          <a href="#demo1" data-bs-toggle="collapse">
+            <img
+              src="images/jhonny_silverhand.jpg"
+              class="img-fluid member-pic"
+              alt="jhonny"
+            />
+          </a>
+          <div id="demo1" class="collapse">
+            <p>Vokal ve gitar</p>
+            <p>Lider ruhlu, öfkeli ve asi</p>
+          </div>
+        </div>
+
+        <div class="col-sm-4 mb-4">
+          <p><strong>Kerry Eurodyne</strong></p>
+          <a href="#demo2" data-bs-toggle="collapse">
+            <img
+              src="images/Kerry.webp"
+              class="img-fluid member-pic"
+              alt="kerry"
+            />
+          </a>
+          <div id="demo2" class="collapse">
+            <p>Solo gitar</p>
+            <p>Tutkulu, arayışçı</p>
+          </div>
+        </div>
+
+        <div class="col-sm-4 mb-4">
+          <p><strong>Nancy</strong></p>
+          <a href="#demo3" data-bs-toggle="collapse">
+            <img
+              src="images/bes_isis.webp"
+              class="img-fluid member-pic"
+              alt="nancy"
+            />
+          </a>
+          <div id="demo3" class="collapse">
+            <p>Elektronik klavye</p>
+            <p>Cesur, gazeteci</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Satır: 2 Üye (col-sm-6 her biri) -->
+      <div class="row">
+        <div class="col-sm-6 mb-4">
+          <p><strong>Denny</strong></p>
+          <a href="#demo4" data-bs-toggle="collapse">
+            <img
+              src="images/denney.jpg"
+              class="img-fluid member-pic"
+              alt="denny"
+            />
+          </a>
+          <div id="demo4" class="collapse">
+            <p>Baterist</p>
+            <p>Enerjik, kırgın</p>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb-4">
+          <p><strong>Henry</strong></p>
+          <a href="#demo5" data-bs-toggle="collapse">
+            <img
+              src="images/henry_mini.webp"
+              class="img-fluid member-pic"
+              alt="henry"
+            />
+          </a>
+          <div id="demo5" class="collapse">
+            <p>Bas gitar</p>
+            <p>Sessiz, hassas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONSER / TUR GÜNLERİ -->
+    <div id="tur" class="bg-light py-5 text-dark">
+      <div class="container text-center">
+        <h3>Konser Tarihleri</h3>
+        <p class="glitch-text">NEVER FADE AWAY</p>
+        <p>Biletlerinizi almayı unutmayın!</p>
+
+        <ul class="list-group mb-4">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            24 Mart 2023 – Afterlife (Watson)
+            <span class="badge bg-danger">Sold out</span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            8 Mayıs 2023 – Rainbow Cadenza (Westbrook)
+            <span class="badge bg-danger">Sold out</span>
+          </li>
+          <li class="list-group-item">1 Haziran 2023 – Totentanz (Watson)</li>
+        </ul>
+
+        <!-- Mekanlar -->
+        <div class="row venue-list">
+          <div class="col-sm-4">
+            <img
+              src="images/afterlife.webp"
+              alt="afterlife"
+              class="img-fluid venue-pic"
+            />
+            <p><strong>AFTERLIFE</strong></p>
+            <p>24 MART 2023</p>
+            <button class="btn">SOLD OUT</button>
+          </div>
+
+          <div class="col-sm-4">
+            <img
+              src="images/rainbow.webp"
+              alt="Rainbow Cadenza"
+              class="img-fluid venue-pic"
+            />
+            <p><strong>RAINBOW CADENZA</strong></p>
+            <p>8 MAYIS 2023</p>
+            <button class="btn">SOLD OUT</button>
+          </div>
+
+          <div class="col-sm-4">
+            <img
+              src="images/totentanz.jpg"
+              alt="totentanz"
+              class="img-fluid venue-pic"
+            />
+            <p><strong>TOTENTANZ</strong></p>
+            <p>1 HAZIRAN 2023</p>
+            <button class="btn">Bilet Al</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- İLETİŞİM -->
+    <div id="iletisim" class="container my-5">
+      <h3 class="text-center">İletişim</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <p>Bir mesaj bırakın!</p>
+          <p>📍 Night City, USA</p>
+          <p>📞 Tel: +1 408 000 000</p>
+          <p>✉️ eposta@mail.com</p>
+        </div>
+        <div class="col-md-8">
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="İsim"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="E-posta"
+                  required
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <textarea
+                class="form-control"
+                rows="5"
+                placeholder="Mesajınızı yazınız"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn float-end">Gönder</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- HARİTA / LOGO (footer) -->
+    <img
+      src="images/samurai map.png"
+      alt="logo"
+      class="img-fluid"
+      style="width: 100%"
+    />
+    <!-- Gizli YouTube oynatıcı -->
+    <iframe
+      id="musicPlayer"
+      allow="autoplay"
+      src=""
+      allowfullscreen
+      style="display: none"
+    ></iframe>
+
+    <!-- SMOOTH SCROLL & TOOLTIP JS -->
+    <script>
+      $(document).ready(function () {
+        // Tooltip aktif et
+        $('[data-bs-toggle="tooltip"]').tooltip();
+
+        // Navbar ve footer linkleri için smooth scroll
+        $(".navbar a, footer a[href='#anasayfa']").on(
+          "click",
+          function (event) {
+            if (this.hash !== "") {
+              event.preventDefault();
+              var hash = this.hash;
+              $("html, body").animate(
+                {
+                  scrollTop: $(hash).offset().top,
+                },
+                800,
+                function () {
+                  window.location.hash = hash;
+                }
+              );
+            }
+          }
+        );
+
+        // SAMURAI logosuna tıklayınca müziği çal
+        $("#samuraiLogo").on("click", function (e) {
+          e.preventDefault();
+          $("#musicPlayer").attr(
+            "src",
+            "https://www.youtube.com/embed/jXQeV4LIBWA?autoplay=1"
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
